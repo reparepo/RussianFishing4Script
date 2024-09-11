@@ -872,6 +872,15 @@ class Player:
         pag.press("0")
         sleep(self.setting.check_delay)
 
+    # TODO[friction]
+    def test(self):
+        x_coords, y_coord = self.monitor._set_friction_params()
+        for x in x_coords:
+            print(pag.pixel(x, y_coord))
+            # pag.moveTo(x, y_coord)
+            # sleep(4)
+        exit()
+
 
 # head up backup
 # win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, int(0), int(-200), 0, 0)

@@ -400,14 +400,44 @@ if __name__ == "__main__":
         script.ask_for_confirmation("Do you want to continue with the settings above")
     app.setting.window_controller.activate_game_window()
 
+
+    # xs, y = app.player.monitor._set_friction_bar_points()
+
+    # 70%: center + 297 (1279 + 297 = 1576)
+    # 80%: center + 340 (1279 + 340 = 1619)
+    # 90%: center + 382 (1279 + 382 = 1661)
+    # center = 1279
+    from time import sleep
+    while True:
+        high = app.player.monitor.is_friction_high()
+        if high:
+            app.player.tackle.change_friction(False)
+        else:
+            app.player.tackle.change_friction(True)
+            sleep(0.5)
+
+    # for x in xs:
+    #     pag.moveTo(x, y)
+    #     sleep(1)
+    # pag.moveTo(xs[0], y)
+    # while True:
+    #     print(pag.pixel(xs[3], y))
+    #     sleep(1)
+    # print(xs)
+    # pixels = [pag.pixel(x, y) for x in xs]
+    # print(pixels)
+    # exit()
+
     if app.setting.quitting_shortcut != "Ctrl-C":
         listener = keyboard.Listener(on_release=app.on_release)
         listener.start()
 
     try:
         app.player.start_fishing()
+        # app.player.test() #TODO[friction]
+        # app.player.test() #TODO[friction]
     except KeyboardInterrupt:
-        pass
+         pass
 
     pag.keyUp("shift")  # avoid Shift key stuck
     print(app.player.gen_result("Terminated by user"))
